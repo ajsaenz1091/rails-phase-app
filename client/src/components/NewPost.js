@@ -25,7 +25,7 @@ const NewPost = ({ handleUserLoginAndSignup, errors, setPosts, posts }) => {
         .then(data => {
             console.log(data)
             handleUserLoginAndSignup(data)
-            setPosts([...posts, data])
+            setPosts([...posts, data.post])
         })
 
     }
