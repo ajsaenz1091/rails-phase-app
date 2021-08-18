@@ -1,17 +1,17 @@
 import Errors from './Errors'
 import NewPost from './NewPost'
-import Posts from './Posts'
+import Post from './Post'
 import Nav from 'react-bootstrap/Nav'
 import { useEffect, useState } from 'react'
 
-const Home = ({ errors, posts }) => {
+const Home = ({ errors, posts, setPosts }) => {
 
 
 
 
     const generatePosts = () => {
         return posts.map(post => {
-            return <Posts post={post} />
+            return <Post post={post} posts={posts} setPosts={setPosts} />
         })
     }
 

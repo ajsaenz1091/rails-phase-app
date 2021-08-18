@@ -2,7 +2,7 @@ class PostsController < ApplicationController
      # GET /posts
      def index
         posts = Post.all 
-        render json: posts 
+        render json: posts.reverse 
     end
 
     # GET /posts/:id
@@ -19,6 +19,16 @@ class PostsController < ApplicationController
             render json: { post: post }, status: :created
         else
             render json: { errors: ["You must be logged in to create a post"] }, status: :unauthorized
+        end
+    end
+
+    def destroy
+        post = find_post
+        if post[:user_id] === session[:user_id]
+            post.destroy
+            head :no_content
+        else
+            render json: { errors: ["Not authorized"] }, status: :unauthorized
         end
     end
 

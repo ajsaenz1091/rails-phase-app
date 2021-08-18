@@ -56,7 +56,7 @@ useEffect(() => {
         </h1>
       <Switch>
         <Route exact path='/home'>
-          <Home errors={errors} currentUser={currentUser} posts={posts} />
+          <Home errors={errors} currentUser={currentUser} posts={posts} setPosts={setPosts} />
         </Route>
         <Route exact path='/signup'>
           <Signup handleUserLoginAndSignup={handleUserLoginAndSignup} errors={errors} />
