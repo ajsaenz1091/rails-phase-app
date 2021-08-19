@@ -1,6 +1,5 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button } from 'react-bootstrap'
 import Signup from './components/Signup'
 import Home from './components/Home'
 import Login from './components/Login'
@@ -10,9 +9,6 @@ import EditPost from './components/EditPost';
 import NavBar from './components/NavBar'
 import { useState, useEffect } from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
-
-
-
 
 const App = () => {
 
@@ -41,13 +37,17 @@ const App = () => {
   const fetchPosts = () => {
     fetch('/posts')
     .then(resp => resp.json())
-    .then(data => setPosts(data))
-}
+    .then(data => {
+      console.log(data)
+      setPosts(data)
+    })
+  }
 
-useEffect(() => {
-  fetchPosts()
-}, [])
+  useEffect(() => {
+    fetchPosts()
+  }, [])
   
+
   return (
     <div className="App">
       <NavBar currentUser={currentUser} />
@@ -68,12 +68,12 @@ useEffect(() => {
             <Logout setCurrentUser={setCurrentUser}/>
         </Route>
         <Route exact path='/newpost'>
-            <NewPost setPosts={setPosts} posts={posts} setCurrentUser={setCurrentUser} handleUserLoginAndSignup={handleUserLoginAndSignup} errors={errors} />
+            <NewPost setCurrentUser={setCurrentUser} handleUserLoginAndSignup={handleUserLoginAndSignup} errors={errors} setPosts={setPosts} posts={posts} />
         </Route>
         <Route exact path='/editpost'>
             <EditPost setCurrentUser={setCurrentUser} handleUserLoginAndSignup={handleUserLoginAndSignup} errors={errors} />
         </Route>
-  </Switch>
+      </Switch>
     </div>
   );
 }

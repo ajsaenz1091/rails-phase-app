@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
-     # GET /posts
-     def index
-        posts = Post.all 
-        render json: posts.reverse 
+
+
+    # GET /posts
+    def index
+        posts = Post.all.reverse
+        render json: posts
     end
 
     # GET /posts/:id
@@ -22,8 +24,10 @@ class PostsController < ApplicationController
         end
     end
 
+    # DELETE /posts/:id
     def destroy
         post = find_post
+        # byebug
         if post[:user_id] === session[:user_id]
             post.destroy
             head :no_content
@@ -32,6 +36,14 @@ class PostsController < ApplicationController
         end
     end
 
+    # PATCH /posts/:id
+    def update
+        post = find_post
+        if post[:user_id] == session[:user_id]
+            post.update(post_params)
+            render json: { post: post }, status: :accepted
+        end
+    end
 
     private
 
@@ -43,4 +55,6 @@ class PostsController < ApplicationController
         params.permit(:title, :content)
     end
 
+
 end
+
