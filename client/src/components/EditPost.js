@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 
 
-const EditPost = ({ post, setPosts, posts, setState }) => {
+const EditPost = ({ post, setPosts, posts, setState, blogTab, editTab }) => {
     const { id } = post
 
     const [form, setForm] = useState({ title: post.title, content: post.content })
@@ -28,31 +28,36 @@ const EditPost = ({ post, setPosts, posts, setState }) => {
                 console.log(data)
                 setPosts(posts.map(singlePost => singlePost.id === id ? data.post : singlePost))}
             )
+        blogTab.current.className = "nav-link active"
+        editTab.current.className = "nav-link"
         setState("#first")
     }
     
    
     return (
         <div>
-            <form onSubmit={handleSubmit} >
+            {/*<form onSubmit={handleSubmit} >
                 <label htmlFor="title">Edit blog title:</label><br />
                 <input onChange={onChange} type="text" id="title" name="title" value={form.title} /><br />
                 <label htmlFor="content">Edit content:</label><br />
                 <textarea onChange={onChange} type="text" id="content" name="content" value={form.content} /><br /><br />
                 {/* <input type="submit" value="Update"/> */}
-                <Button type="submit" variant="primary">Update post</Button>
-            </form>
-            <Form>
+                {/*<Button type="submit" variant="primary">Update post</Button>
+    </form>*/}
+            <Form onSubmit={ handleSubmit } >
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Subject</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" />
+                    <Form.Label>Blog title</Form.Label>
+                    <Form.Control onChange={ onChange } value={ form.title  } name='title' type="text" placeholder="Blog subject" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Content</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
+                    <Form.Label>Blog Content</Form.Label>
+                    <Form.Control onChange={ onChange } value={ form.content } name="content" type='text' as="textarea" rows={3} />
                 </Form.Group>
+                <Button type="submit" variant="outline-primary" size="sm" >Update post</Button>
             </Form>
         </div>
+
+
     )
 }
 export default EditPost

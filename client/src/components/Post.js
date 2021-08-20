@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import EditPost from './EditPost'
 import BlogCardTab from './BlogCardTab'
 import { Card,Nav } from 'react-bootstrap'
 
-const Post = ({ errors, post, setPosts, posts }) => {
+const Post = ({ errors, post, setPosts, posts, key }) => {
 
     const { id } = post
 
     const [state, setState] = useState('#first')
-
-    
+    const active = true;
+    const blogTab = React.createRef()
+    const editTab = React.createRef()
 
     const handleDeletePost = () => {
         let config = {
@@ -24,7 +25,10 @@ const Post = ({ errors, post, setPosts, posts }) => {
     }
 
     const handleTab = (e) => {
-        console.log(e.target)
+        if(e.target.href.includes('#link')){
+            blogTab.current.className = "nav-link"
+            editTab.current.className = "nav-link active"
+        } 
         setState(e.target.href)
     }
 
@@ -32,24 +36,24 @@ const Post = ({ errors, post, setPosts, posts }) => {
         if(state.includes('#first')){
             return <BlogCardTab post={post} handleDeletePost={handleDeletePost} errors={errors} />
         } else if (state.includes('#link')) {
-            return <EditPost handleTab={handleTab} setState={setState} post={post} setPosts={setPosts} posts={posts} />
+            return <EditPost blogTab={blogTab} editTab={editTab} handleTab={handleTab} setState={setState} post={post} setPosts={setPosts} posts={posts} />
         } else {
             return <p>Comments section comming soon!</p>
         }
     }
 
     return (
-        <Card id="post-card" border="dark" bg="light">
+        <Card id={post.id} className="post-card" border="dark" bg="light">
             <Card.Header>
                 <Nav variant="tabs" defaultActiveKey={state}>
                     <Nav.Item>
-                        <Nav.Link onClick={ handleTab } href="#first">Blog post</Nav.Link>
+                        <Nav.Link class="nav-link active" ref={blogTab} onClick={ handleTab } href="#first">Blog post</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link onClick={ handleTab } href="#link">Edit post</Nav.Link>
+                        <Nav.Link ref={editTab} onClick={ handleTab } href="#link">Edit post</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link onClick={ handleTab } href="#disabled">Comments</Nav.Link>
+                        <Nav.Link  onClick={ handleTab } href="#disabled">Comments</Nav.Link>
                     </Nav.Item>
                 </Nav>
             </Card.Header>
