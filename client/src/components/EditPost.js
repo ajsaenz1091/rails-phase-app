@@ -13,6 +13,7 @@ const EditPost = ({ post, setPosts, posts, setState }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log("hello")
         let config = {
             method: 'PATCH',
             headers: {
@@ -23,17 +24,20 @@ const EditPost = ({ post, setPosts, posts, setState }) => {
         }
         fetch(`/posts/${id}`, config)
             .then(resp => resp.json())
-            .then(data => setPosts(posts.map(singlePost => singlePost.id === id ? data.post : singlePost))
+            .then(data => {
+                console.log(data)
+                setPosts(posts.map(singlePost => singlePost.id === id ? data.post : singlePost))}
             )
         setState("#first")
     }
-
+    
+   
     return (
         <div>
             <form onSubmit={handleSubmit} >
-                <label for="title">Edit blog title:</label><br />
+                <label htmlFor="title">Edit blog title:</label><br />
                 <input onChange={onChange} type="text" id="title" name="title" value={form.title} /><br />
-                <label for="content">Edit content:</label><br />
+                <label htmlFor="content">Edit content:</label><br />
                 <textarea onChange={onChange} type="text" id="content" name="content" value={form.content} /><br /><br />
                 {/* <input type="submit" value="Update"/> */}
                 <Button type="submit" variant="primary">Update post</Button>

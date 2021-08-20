@@ -10,7 +10,7 @@ const BlogCardTab = ({ post, handleDeletePost, errors }) => {
                     {post.content}
                 </Card.Text>
                 <Card.Text>
-                    Posted by: {}
+                    Posted by: {post.user.username}
                 </Card.Text>
             <Button onClick={handleDeletePost} variant="primary">Delete post</Button>
             <Errors errors={errors} />

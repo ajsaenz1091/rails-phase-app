@@ -31,7 +31,7 @@ const App = () => {
     .then(data => setCurrentUser(data.user))
   }
   
-  useEffect(checkSessionId, []);
+  // useEffect(checkSessionId, []);
 
 
   const fetchPosts = () => {
@@ -45,6 +45,7 @@ const App = () => {
 
   useEffect(() => {
     fetchPosts()
+    checkSessionId()
   }, [])
   
 

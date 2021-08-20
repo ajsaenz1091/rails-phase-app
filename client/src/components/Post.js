@@ -17,7 +17,6 @@ const Post = ({ errors, post, setPosts, posts }) => {
         }
         fetch(`/posts/${id}`, config)
             .then(resp => {
-                console.log(resp)
                 if (resp.ok) {
                     setPosts(posts.filter(post => post.id !== id))
                 }
@@ -25,6 +24,7 @@ const Post = ({ errors, post, setPosts, posts }) => {
     }
 
     const handleTab = (e) => {
+        console.log(e.target)
         setState(e.target.href)
     }
 
@@ -32,7 +32,7 @@ const Post = ({ errors, post, setPosts, posts }) => {
         if(state.includes('#first')){
             return <BlogCardTab post={post} handleDeletePost={handleDeletePost} errors={errors} />
         } else if (state.includes('#link')) {
-            return <EditPost setState={setState} post={post} setPosts={setPosts} posts={posts} />
+            return <EditPost handleTab={handleTab} setState={setState} post={post} setPosts={setPosts} posts={posts} />
         } else {
             return <p>Comments section comming soon!</p>
         }

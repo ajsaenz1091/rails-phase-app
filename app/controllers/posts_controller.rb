@@ -18,7 +18,7 @@ class PostsController < ApplicationController
         if session[:user_id]
             post = Post.create(post_params)
             post.update!(user_id: session[:user_id])
-            render json: { post: post }, status: :created
+            render json: {post: post}, include: ['user'], status: :created
         else
             render json: { errors: ["You must be logged in to create a post"] }, status: :unauthorized
         end
@@ -41,7 +41,7 @@ class PostsController < ApplicationController
         post = find_post
         if post[:user_id] == session[:user_id]
             post.update(post_params)
-            render json: { post: post }, status: :accepted
+            render json: {post: post}, include: ['user'], status: :accepted
         end
     end
 

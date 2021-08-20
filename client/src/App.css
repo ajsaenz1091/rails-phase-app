@@ -37,14 +37,16 @@
   }
 }
 
-.post-card {
+#post-card {
   height: 100%;
-  width: 100%;
-  margin: auto;
+  width: 85%;
   text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 2rem;
+  grid-gap: 0.1rem;
+  gap: 0.1rem;
   margin-bottom: 5%;
+  margin-left: 8%;
+  margin-right: 0%;
 }
