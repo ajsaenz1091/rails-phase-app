@@ -8,7 +8,6 @@ const Post = ({ errors, post, setPosts, posts, key }) => {
     const { id } = post
 
     const [state, setState] = useState('#first')
-    const active = true;
     const blogTab = React.createRef()
     const editTab = React.createRef()
 
@@ -25,6 +24,7 @@ const Post = ({ errors, post, setPosts, posts, key }) => {
     }
 
     const handleTab = (e) => {
+        console.log(e.target)
         if(e.target.href.includes('#link')){
             blogTab.current.className = "nav-link"
             editTab.current.className = "nav-link active"

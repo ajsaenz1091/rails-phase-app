@@ -54,7 +54,7 @@ const NavBar = ({ currentUser }) => {
                         menuVariant="dark">
                         <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
                         <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                        <NavDropdown.Item href="/posts">Your Posts</NavDropdown.Item>
+                        {/*<NavDropdown.Item href="/posts">Your Posts</NavDropdown.Item>*/}
                         <NavDropdown.Item href="/newpost">Create Post</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>

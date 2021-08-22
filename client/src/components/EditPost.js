@@ -13,7 +13,6 @@ const EditPost = ({ post, setPosts, posts, setState, blogTab, editTab }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("hello")
         let config = {
             method: 'PATCH',
             headers: {
@@ -25,8 +24,10 @@ const EditPost = ({ post, setPosts, posts, setState, blogTab, editTab }) => {
         fetch(`/posts/${id}`, config)
             .then(resp => resp.json())
             .then(data => {
-                console.log(data)
-                setPosts(posts.map(singlePost => singlePost.id === id ? data.post : singlePost))}
+                if(!data.error){
+                    setPosts(posts.map(singlePost => singlePost.id === id ? data.post : singlePost))
+                }
+            }
             )
         blogTab.current.className = "nav-link active"
         editTab.current.className = "nav-link"
