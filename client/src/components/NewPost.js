@@ -23,9 +23,10 @@ const NewPost = ({ handleUserLoginAndSignup, errors, setPosts, posts }) => {
         fetch('/posts', config)
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
-            handleUserLoginAndSignup(data)
-            setPosts([data.post, ...posts])
+            if(!data.error){
+                handleUserLoginAndSignup(data)
+                setPosts([data.post, ...posts])
+            }
         })
     }
 
