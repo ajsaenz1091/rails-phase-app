@@ -16,6 +16,14 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [errors, setErrors] = useState([]);
   const [posts, setPosts] = useState([]);
+
+  const handleCreatePost = (data) => {
+    data.errors ? setErrors(data.errors) : setPosts([data.post, ...posts])
+    if(!data.errors) {
+      history.push('/home')
+      setErrors([])
+    }
+  }
   
   const handleUserLoginAndSignup = (data) => {
     data.errors ? setErrors(data.errors) : setCurrentUser(data.user)
@@ -38,7 +46,6 @@ const App = () => {
     fetch('/posts')
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
       setPosts(data)
     })
   }
@@ -69,7 +76,7 @@ const App = () => {
             <Logout setCurrentUser={setCurrentUser}/>
         </Route>
         <Route exact path='/newpost'>
-            <NewPost setCurrentUser={setCurrentUser} handleUserLoginAndSignup={handleUserLoginAndSignup} errors={errors} setPosts={setPosts} posts={posts} />
+            <NewPost setCurrentUser={setCurrentUser} handleCreatePost={handleCreatePost} errors={errors} setPosts={setPosts} posts={posts} />
         </Route>
         <Route exact path='/editpost'>
             <EditPost setCurrentUser={setCurrentUser} handleUserLoginAndSignup={handleUserLoginAndSignup} errors={errors} />

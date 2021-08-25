@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Errors from './Errors'
 
-const NewPost = ({ handleUserLoginAndSignup, errors, setPosts, posts }) => {
+const NewPost = ({ handleCreatePost, errors, setPosts, posts }) => {
 
     const [state, setState] = useState({})
     
@@ -24,8 +24,7 @@ const NewPost = ({ handleUserLoginAndSignup, errors, setPosts, posts }) => {
         .then(resp => resp.json())
         .then(data => {
             if(!data.error){
-                handleUserLoginAndSignup(data)
-                setPosts([data.post, ...posts])
+                handleCreatePost(data)
             }
         })
     }
